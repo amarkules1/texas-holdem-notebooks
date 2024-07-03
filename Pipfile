@@ -1,0 +1,16 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+requests = "*"
+pandas = "*"
+jupyter = "*"
+notebook = "*"
+scikit-learn = "*"
+numpy = "*"
+sqlalchemy = "*"
+ipykernel = "*"
+python-dotenv = "*"
+texas-hold-em-utils = "==0.0.5"
