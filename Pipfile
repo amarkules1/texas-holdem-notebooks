@@ -3,6 +3,11 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
+[[source]]
+url = "https://download.pytorch.org/whl/cu124/"
+verify_ssl = false
+name = "pytorch"
+
 [packages]
 requests = "*"
 pandas = "*"
@@ -15,3 +20,8 @@ ipykernel = "*"
 python-dotenv = "*"
 texas-hold-em-utils = "==0.0.5"
 psycopg2 = "*"
+torch = {index = "pytorch", version = "*"}
+torchvision = {index = "pytorch", version = "*"}
+torchaudio = {index = "pytorch", version = "*"}
+gymnasium = "*"
+matplotlib = "*"
