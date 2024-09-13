@@ -25,3 +25,5 @@ torchvision = {index = "pytorch", version = "*"}
 torchaudio = {index = "pytorch", version = "*"}
 gymnasium = "*"
 matplotlib = "*"
+flappy-bird-gymnasium = "*"
+tensorflow = "*"
