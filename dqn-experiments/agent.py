@@ -47,6 +47,7 @@ class Agent:
             self.stop_on_reward = self.hyperparams['stop_on_reward'] # stop training when the reward reaches this value
             self.fc1_nodes = self.hyperparams['fc1_nodes']
             self.env_make_params = self.hyperparams.get('env_make_params', {})
+            self.enable_double_dqn = self.hyperparams.get('enable_double_dqn', False)
             
             self.loss_fn = nn.MSELoss() # loss function (mean squared error)
             self.optimizer = None
@@ -90,6 +91,7 @@ class Agent:
             
             best_reward = -float('inf')
         else:
+            print(f"Loading model from {self.MODEL_FILE}")
             policy_net.load_state_dict(torch.load(self.MODEL_FILE))
             policy_net.eval()
         
@@ -223,8 +225,13 @@ class Agent:
         dones = torch.tensor(dones).float().to(device)
         
         with torch.no_grad():
-            # calculate target q values (expected future rewards)
-            target_q = rewards + (1-dones) * self.discount_factor_g * target_net(new_states).max(dim=1)[0]
+            if self.enable_double_dqn:
+                best_action_from_policy = policy_net(new_states).argmax(dim=1)
+                target_q = rewards + (1-dones) * self.discount_factor_g *\
+                    target_net(new_states).gather(dim=1, index=best_action_from_policy.unsqueeze(dim=1)).squeeze()
+            else:
+                # calculate target q values (expected future rewards)
+                target_q = rewards + (1-dones) * self.discount_factor_g * target_net(new_states).max(dim=1)[0]
             
         # calculate the Q value from the current policy
         current_q = policy_net(states).gather(dim=1, index=actions.unsqueeze(dim=1)).squeeze()
