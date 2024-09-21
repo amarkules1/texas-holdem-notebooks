@@ -27,10 +27,11 @@ os.makedirs(RUNS_DIR, exist_ok=True)
 
 matplotlib.use('Agg')
 
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+device = torch.device('cpu' if torch.cuda.is_available() else 'cpu')
 
 class Agent:
     def __init__(self, hyperparam_option):
+        print(device.type)
         with open('hyperparameters.yml', 'r') as f:
             all_hyperparams = yaml.safe_load(f)
             self.hyperparams = all_hyperparams[hyperparam_option]
