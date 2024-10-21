@@ -18,7 +18,7 @@ numpy = "*"
 sqlalchemy = "*"
 ipykernel = "*"
 python-dotenv = "*"
-texas-hold-em-utils = "==0.0.8"
+texas-hold-em-utils = "==0.1.2"
 psycopg2 = "*"
 torch = {index = "pytorch", version = "*"}
 torchvision = {index = "pytorch", version = "*"}
